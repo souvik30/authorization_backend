@@ -17,6 +17,30 @@ public class MyUser {
 	@Column(name = "username", length = 20)
 	private String username;
 
+	@Column(name = "name", length = 20)
+	private String name;
+
+	@Column(name = "user_type", length = 20)
+	private String user_type;
+
+
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getUser_type() {
+		return user_type;
+	}
+
+	public void setUser_type(String user_type) {
+		this.user_type = user_type;
+	}
+
 	public String getUserid() {
 		return userid;
 	}
@@ -46,13 +70,12 @@ public class MyUser {
 		// TODO Auto-generated constructor stub
 	}
 
-	public MyUser(String userid, String password, String username) {
+	public MyUser(String userid, String password, String username, String name, String user_type) {
 		super();
 		this.userid = userid;
 		this.password = password;
 		this.username = username;
+		this.name = name;
+		this.user_type = user_type;
 	}
-	
-	
-
 }

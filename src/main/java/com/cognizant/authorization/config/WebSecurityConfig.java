@@ -46,8 +46,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		log.info("START");
 		SessionManagementConfigurer<HttpSecurity> sessionCreationPolicy = http.csrf().disable().authorizeRequests()
-				.antMatchers("/login").permitAll().anyRequest().authenticated().and().exceptionHandling().and()
+				.antMatchers("/login","/h2-console/**").permitAll().anyRequest().authenticated().and().exceptionHandling().and()
 				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+
+		http.csrf().disable();
+		http.headers().frameOptions().disable();
 		log.debug("SESSION CREATE POLICY {}:", sessionCreationPolicy);
 		HttpSecurity addFilterBefore = http.addFilterBefore(jwtRequestFilter,
 				UsernamePasswordAuthenticationFilter.class);
@@ -76,7 +79,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	public void configure(WebSecurity web) throws Exception {
 		log.info("START");
 		IgnoredRequestConfigurer antMatchers = web.ignoring().antMatchers("/login",
-				"/configuration/ui", "/configuration/security", "/webjars/**", "/manage/health/**");
+				"/configuration/ui","/h2-console", "/configuration/security", "/webjars/**", "/manage/health/**");
 		log.debug("ANT MATCHERS{}:", antMatchers);
 		log.info("END");
 	}
