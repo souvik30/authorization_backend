@@ -2,6 +2,7 @@ package com.cognizant.authorization.controller;
 
 import com.cognizant.authorization.AuthorizationServiceApplication;
 import com.cognizant.authorization.model.JwtResponse;
+import com.cognizant.authorization.model.MyUser;
 import com.cognizant.authorization.model.UserLoginCredential;
 import com.cognizant.authorization.model.UserToken;
 import com.cognizant.authorization.repository.MyUserRepository;
@@ -86,6 +87,14 @@ public class JwtAuthenticationController {
 		}
 		log.info("END");
 		return new ResponseEntity<>(jwtResponse, HttpStatus.OK);
+	}
+	@RequestMapping(value = "/register", method = RequestMethod.POST)
+	public ResponseEntity<MyUser> register(@RequestBody MyUser userData) throws Exception {
+		log.info("START");
+		log.debug("UserData {}:", userData);
+		log.info("END");
+		return ResponseEntity.status(HttpStatus.CREATED).body(userservice.save(userData));
+
 	}
 
 }
